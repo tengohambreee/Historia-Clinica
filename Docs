@@ -1,0 +1,61 @@
+@startuml
+
+class patient {
+    - full_name: String
+    - id: int
+    - birth_date: Date
+    - gender: boolean
+    - weight: double
+    - height: double
+    - home_address: String
+    - medical_images: List<medical_image>
+    - medical_conditions: List<medical_condition>
+    + get_full_name(): String
+    + get_id(): int
+    + get_birth_date(): Date
+    + get_gender(): boolean 
+    + get_weight(): double
+    + get_height(): double
+    + get_home_address(): String
+    + add_medical_image(image: medical_image): void
+    + remove_medical_image(image: medical_image): void
+    + add_medical_condition(condition: medical_condition): void
+    + remove_medical_condition(condition: medical_condition): void
+}
+
+class medical_condition {
+    - condition_name: String
+    - diagnosis_date: Date
+    - prescribed_treatment: String
+    + get_condition_name(): String
+    + get_diagnosis_date(): Date
+    + get_prescribed_treatment(): String
+}
+
+class medical_image {
+    - file_name: String
+    - date_captured: Date
+    - image_type: String
+    - doctor_notes: String
+    + get_file_name(): String
+    + get_date_captured(): Date
+    + get_image_type(): String
+    + get_doctor_notes(): String
+}
+
+class hospital {
+    - patient_records: List<patient>
+    + find_patient_by_id(id: int): patient
+    + get_tallest_patients_heights(): List<String>
+    + count_female_patients_with_dengue(): int
+    + sort_patients_by_name(): List<patient>
+    + sort_patients_by_weight(): List<patient>
+    + add_patient(patient: patient): void
+    + remove_patient(patient: patient): void
+}
+
+patient "1" -- "0..*" medical_image : has
+patient "1" -- "1..*" medical_condition : suffers
+hospital "1" -- "0..*" patient : manages
+
+@enduml
